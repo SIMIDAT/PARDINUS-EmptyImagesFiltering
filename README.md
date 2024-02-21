@@ -1,0 +1,1 @@
+# Empty Images Filtering V2
