@@ -5,6 +5,12 @@ from utils import correntropy
 
 
 
+
+
+
+
+
+# Train RAE models with your own images
 def main():
     pass
 
