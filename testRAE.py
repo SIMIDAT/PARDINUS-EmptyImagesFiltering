@@ -1,4 +1,4 @@
-from RobustAutoencoder import *
+#from RobustAutoencoder import *
 import config
 import utils
 
@@ -82,7 +82,7 @@ def main():
     input_shape = config.INPUT_SHAPE
 
 
-    # Depending if we are training or testing, there are different workflows
+    # Depending if we want to create a error file of training images or testing images, we use different workflows
 
     # Train workflow
     if trainTest == "Train":
