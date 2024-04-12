@@ -1,7 +1,7 @@
-import config
-import utils
-from utils import checkGPU
-from utils import correntropy
+import EmptyImagesFiltering_V2.configMAL as configMAL
+import EmptyImagesFiltering_V2.utilsMAL as utilsMAL
+from EmptyImagesFiltering_V2.utilsMAL import checkGPU
+from EmptyImagesFiltering_V2.utilsMAL import correntropy
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow import keras

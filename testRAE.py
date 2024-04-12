@@ -1,6 +1,4 @@
-#from RobustAutoencoder import *
-import config
-import utils
+
 
 
 import tensorflow as tf
@@ -67,40 +65,40 @@ def saveResults(results, trainTest, numberOfCluster):
 
 # Test RAE models and saves the error file
 def main():
-    numberOfClusters = config.NUMBER_OF_CLUSTERS
+    numberOfClusters = configMAL.NUMBER_OF_CLUSTERS
 
     # Mode
-    trainTest = config.TRAINTEST
+    trainTest = configMAL.TRAINTEST
 
     # Size of the block
-    blockWidth = config.BLOCK_WIDTH
-    blockHeight = config.BLOCK_HEIGHT
+    blockWidth = configMAL.BLOCK_WIDTH
+    blockHeight = configMAL.BLOCK_HEIGHT
 
     # Image features
-    IMG_WIDTH = config.IMG_WIDTH
-    IMG_HEIGHT = config.IMG_HEIGHT
-    input_shape = config.INPUT_SHAPE
+    IMG_WIDTH = configMAL.IMG_WIDTH
+    IMG_HEIGHT = configMAL.IMG_HEIGHT
+    input_shape = configMAL.INPUT_SHAPE
 
 
     # Depending if we want to create a error file of training images or testing images, we use different workflows
 
     # Train workflow
     if trainTest == "Train":
-        animalFolder = config.ANIMAL_EQUALIZED_TRAINING_IMAGES_PATH
-        emptyFolder = config.EMPTY_EQUALIZED_TRAINING_IMAGES_PATH
+        animalFolder = configMAL.ANIMAL_EQUALIZED_TRAINING_IMAGES_PATH
+        emptyFolder = configMAL.EMPTY_EQUALIZED_TRAINING_IMAGES_PATH
 
 
         results = list()
 
         # For each cluster...
         for clusterIndex in range(numberOfClusters):
-            AEname = utils.getAEName(numberOfClusters, clusterIndex)
+            AEname = utilsMAL.getAEName(numberOfClusters, clusterIndex)
 
             print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
             print('Model: ' + AEname)
 
             # Load RAE model
-            model = utils.getRAEModel(input_shape)
+            model = utilsMAL.getRAEModel(input_shape)
             model.load_weights(AEname + ".h5")
 
             # Process the empty training dataset
@@ -112,7 +110,7 @@ def main():
                 batch_size=1,
                 class_mode=None,
                 shuffle=False,
-                seed=config.SEED
+                seed=configMAL.SEED
             )
 
             contador = 0
@@ -153,7 +151,7 @@ def main():
                 batch_size=1,
                 class_mode=None,
                 shuffle=False,
-                seed=config.SEED
+                seed=configMAL.SEED
             )
 
             contador = 0
@@ -188,20 +186,20 @@ def main():
 
     # Test workflow
     else:
-        testFolder = config.EQUALIZED_TEST_IMAGES_PATH
+        testFolder = configMAL.EQUALIZED_TEST_IMAGES_PATH
 
 
         results = list()
 
         # For each cluster...
         for clusterIndex in range(numberOfClusters):
-            AEname = utils.getRAEName(numberOfClusters, clusterIndex)
+            AEname = utilsMAL.getRAEName(numberOfClusters, clusterIndex)
 
             print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
             print('Model: ' + AEname)
 
             # Load pretrained model
-            model = utils.getRAEModel(input_shape)
+            model = utilsMAL.getRAEModel(input_shape)
             model.load_weights(AEname + ".h5")
 
             # Process the test dataset
@@ -213,7 +211,7 @@ def main():
                 batch_size=1,
                 class_mode=None,
                 shuffle=False,
-                seed=config.SEED
+                seed=configMAL.SEED
             )
 
             contador = 0
