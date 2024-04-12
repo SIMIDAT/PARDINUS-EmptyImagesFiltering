@@ -20,11 +20,14 @@ contador = 0
 # Prepare output directory
 if os.path.isdir(config.POST_CLUSTERING_DIRECTORY_NAME):
     # Remove old equalized images
+    print("EXISTE")
     shutil.rmtree(config.POST_CLUSTERING_DIRECTORY_NAME)
 
 os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME)
+
 for i in range(config.NUMBER_OF_CLUSTERS):
-    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + "/" + str(i))
+    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i))
+    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i) + os.sep + "images")
 
 
 for root, dirs, files in os.walk(config.ORIGINAL_DATA + config.DATA_NAME, topdown=True):
@@ -41,14 +44,13 @@ for root, dirs, files in os.walk(config.ORIGINAL_DATA + config.DATA_NAME, topdow
         
         # Predict cluster
         indiceCluster = kmeansModel.predict(img)[0]
-        c.append(indiceCluster)
 
         # Get equalized image
         eqImg = utils.equalizeImage(originalImg)
 
         # Save equalized image
         writeRoute = config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + name
-        cv.imwrite(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + os.sep + name, eqImg)
+        cv.imwrite(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
 
         
         if contador % 100 == 0:
