@@ -1,5 +1,5 @@
 ORIGINAL_DATA = "./Data/"
-DATA_NAME = "Animales"  # You have to adjust this variable
+DATA_NAME = "Vacio"  # You have to adjust this variable
 
 # Image features
 IMG_WIDTH = 384
@@ -19,5 +19,7 @@ RAE_ROUTE = "./TrainedModels/"
 SEED = 1491
 
 ERRORS_DIRECTORY = "./ErrorFiles"
+
+RF_ROUTE = "./TrainedModels/RandomForestModel.pickle"
 
 
