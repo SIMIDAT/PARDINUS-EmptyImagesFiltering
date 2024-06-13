@@ -13,6 +13,13 @@ Test/__pycache__
 
 BBDDReentrenamiento
 
+Train/Data
+
+Train/__pycache__
+
+Train/*.bs
+Train/*.out
+
 
 
 
