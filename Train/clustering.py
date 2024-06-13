@@ -26,6 +26,8 @@ for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
         trainingData.append(img)
 
         cc+=1
+        if cc % 1000 == 0:
+            print(cc)
 
         
 # Convert each instance to array

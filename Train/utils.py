@@ -1,3 +1,7 @@
+import tensorflow as tf
+import numpy as np
+import tensorflow.keras.backend as K
+
 # Correntropy loss function used for Robust Autoencoder
 tf_2pi = tf.constant(tf.sqrt(2*np.pi), dtype=tf.float32)
 
