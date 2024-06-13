@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+#SBATCH -J EmptyFiltering
+#SBATCH --gres=gpu:1
+
+
+
+conda activate emptyfiltering
+srun python3 "/raid/david/EmptyImagesFiltering_V2/Train/randomForest.py"
