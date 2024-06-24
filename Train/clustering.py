@@ -13,10 +13,12 @@ import numpy as np
 
 trainingData = list()
 
+f = open("log.txt", "w")
+
 # Loop over empty images BBDD
 cc = 0
 
-for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
+for root, dirs, files in os.walk("./Data/BBDD_Clustering", topdown=False):
     for name in files:
 
         # Read and normalize the image
@@ -27,20 +29,34 @@ for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
 
         cc+=1
         if cc % 1000 == 0:
-            print(cc)
+            f.write(str(cc) + "\n")
 
         
+
+
 # Convert each instance to array
 trainingData = np.array(trainingData)
+
+f.write("array \n")
 trainingData = trainingData.reshape(cc, 256 * 384 * 3)
 
+f.write("reshape \n")
+
 print(len(trainingData[0]))
+
+
 
 print("Training K-Means (" + str(config.NUMBER_OF_CLUSTERS) + " clusters)")
 
 kmeans = KMeans(n_clusters=config.NUMBER_OF_CLUSTERS).fit(trainingData)
 
+print("kmeans entrenado \n")
+
 # Guardamos el modelo
 pkl.dump(kmeans, open(config.KMEANS_ROUTE, 'wb')) #Saving the model
 
+print("kmeans guardado \n")
+
 print("kmeans trained")
+
+f.close()

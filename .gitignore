@@ -20,6 +20,9 @@ Train/__pycache__
 Train/*.bs
 Train/*.out
 
+Train/climages.py
+Train/log.txt
+
 
 
 
