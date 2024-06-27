@@ -1,4 +1,5 @@
 EMPTY_DATA = "./Data/BBDDTrain/Vacio"
+TRAINING_DATA = "./Data/BBDDTrain"
 
 NUMBER_OF_CLUSTERS = 7
 KMEANS_ROUTE = "./TrainedModels/KMeansModel.pkl"
