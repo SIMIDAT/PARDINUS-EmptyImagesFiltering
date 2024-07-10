@@ -43,10 +43,10 @@ print(trainFolder)
 
 
 # TODO: Modificar para cada ejecución
-clusterIndex = 3
+clusterIndex = 6
 
 print("\n\n\nChecking...")
-print(trainFolder + str(clusterIndex))
+print(trainFolder + os.sep + str(clusterIndex))
 
 print("Generating training and validation datasets...")
 
@@ -89,8 +89,10 @@ model.compile(
 history = model.fit(
     trainGenerator,
     validation_data = validationGenerator,
-    epochs = 5, # TODO
-    verbose = verbose
+    epochs = 75, # TODO
+    verbose = verbose,
+    steps_per_epoch=trainGenerator.samples // batch_size,  ##########
+    validation_steps = validationGenerator.samples // batch_size  ##########
 )
 
 print(history.history.keys())
@@ -103,8 +105,8 @@ plt.ylabel('Mse')
 plt.xlabel('Epoch')
 plt.legend(['train', 'validation'], loc='upper left')
 plt.show()
-plt.savefig("./Graficas/mse_" + str(clusterIndex) + ".pdf")
-plt.savefig("./Graficas/mse_" + str(clusterIndex) + ".png")
+plt.savefig("./Graficas/mse_" + str(clusterIndex) + "_REDUCEMEAN.pdf")
+plt.savefig("./Graficas/mse_" + str(clusterIndex) + "_REDUCEMEAN.png")
 plt.clf()
 
 
@@ -115,8 +117,8 @@ plt.ylabel('Correntropy loss')
 plt.xlabel('Epoch')
 plt.legend(['train', 'validation'], loc='upper left')
 plt.show()
-plt.savefig("./Graficas/loss_" + str(clusterIndex) + ".pdf")
-plt.savefig("./Graficas/loss_" + str(clusterIndex) + ".png")
+plt.savefig("./Graficas/loss_" + str(clusterIndex) + "_REDUCEMEAN.pdf")
+plt.savefig("./Graficas/loss_" + str(clusterIndex) + "_REDUCEMEAN.png")
 
 
 

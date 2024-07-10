@@ -17,20 +17,25 @@ print(len(kmeansModel.cluster_centers_))
 # Read data and assign a cluster
 contador = 0
 
+# Image folder
+directorioImagenes = config.POST_CLUSTERING_DIRECTORY_NAME_ANIMALTEST
+
+
+
 # Prepare output directory
-if os.path.isdir(config.POST_CLUSTERING_DIRECTORY_NAME):
+if os.path.isdir(directorioImagenes):
     # Remove old equalized images
     print("EXISTE")
-    shutil.rmtree(config.POST_CLUSTERING_DIRECTORY_NAME)
+    shutil.rmtree(directorioImagenes)
 
-os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME)
+os.mkdir(directorioImagenes)
 
 for i in range(config.NUMBER_OF_CLUSTERS):
-    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i))
-    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i) + os.sep + "images")
+    os.mkdir(directorioImagenes + os.sep + str(i))
+    os.mkdir(directorioImagenes + os.sep + str(i) + os.sep + "images")
 
-print(config.EMPTY_DATA)
-for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
+print(config.ANIMAL_TEST_DATA)
+for root, dirs, files in os.walk(config.ANIMAL_TEST_DATA, topdown=False):
 
     for name in files:
         
@@ -50,9 +55,9 @@ for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
         eqImg = utils.equalizeImage(originalImg)
 
         # Save equalized image
-        writeRoute = config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + name
-        cv.imwrite(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
-        #print(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name)
+        writeRoute = directorioImagenes + os.sep + str(indiceCluster) + name
+        cv.imwrite(directorioImagenes + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
+        #print(directorioImagenes + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name)
         
         
         if contador % 100 == 0:
