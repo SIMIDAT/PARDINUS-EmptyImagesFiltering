@@ -1,9 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
-
-import config
+import pickle as pkl
 import random
-
-
 
 
 
@@ -11,13 +8,10 @@ import random
 
 listaErroresEtiquetas = list()
 
-# Read empty file
-emptyTrainErrorFile = config.EMPTY_TRAIN_ERROR_FILE
+# Read balanced file
+balancedTrainErrorFile = "./Data/TrainMulticlase_Balanceado.txt"
 
-# Read animal file
-animalTrainErrorFile = config.ANIMAL_TRAIN_ERROR_FILE
-
-f = open(animalTrainErrorFile, "r")
+f = open(balancedTrainErrorFile, "r")
 
 lineas = f.readlines()
 
@@ -55,11 +49,14 @@ for error in listaErroresEtiquetas:
     errorLineNumber[-1] = int(errorLineNumber[-1])
     listaErrores.append(errorLineNumber)
 
-print(listaErrores)
-print(listaEtiquetas)
 
 # Train the model
 
-#randomForestModel = RandomForestClassifier(n_estimators=200)
+randomForestModel = RandomForestClassifier(n_estimators=200)
+randomForestModel.fit(listaErrores, listaEtiquetas)
 
 # Save the model
+pkl.dump(randomForestModel, open("./modeloRF.pkl", "wb"))
+
+
+
