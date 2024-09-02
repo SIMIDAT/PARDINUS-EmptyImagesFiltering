@@ -53,21 +53,23 @@ def errorCalculation(original, reconstruccion, width, height, blockWidth, blockH
 
 
 # Save reconstruction error results on disk
-def saveResults(results):
+def saveResults(results, filepath):
 
-    # Prepare output directory
-    if os.path.isdir(config.ERRORS_DIRECTORY):
-        # Remove old error files
-        shutil.rmtree(config.ERRORS_DIRECTORY)
+    # # Prepare output directory
+    # if os.path.isdir(config.ERRORS_DIRECTORY):
+    #     # Remove old error files
+    #     shutil.rmtree(config.ERRORS_DIRECTORY)
 
-    os.mkdir(config.ERRORS_DIRECTORY)
+    # os.mkdir(config.ERRORS_DIRECTORY)
 
-    fichero = open(config.ERRORS_DIRECTORY + os.sep + "Test_Errors_7_RAE_" + config.DATA_NAME + ".txt", "w")
+    fichero = open(config.ERRORS_DIRECTORY + os.sep + "Test_Nombre_Errors_7_RAE_" + config.DATA_NAME + ".txt", "w")
 
-    for resultado in results:
+    for indiceImagen, resultado in enumerate(results):
 
         for i in range(len(resultado)):
             fichero.write(str(resultado[i]) + ",")
+
+        fichero.write(filepath[indiceImagen])
 
         fichero.write("\n")
 
@@ -81,7 +83,7 @@ results = list()
 # For each cluster of images
 for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
 
-    AEName = config.RAE_ROUTE + "7GR_RAE_cluster" + str(clusterIndex) + ".h5"
+    AEName = config.RAE_ROUTE + "RAE_Reentreno_7CL_" + str(clusterIndex) + ".h5"
 
     print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
     print('Model: ' + AEName)
@@ -104,6 +106,20 @@ for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
 
     contador = 0
 
+
+    # Nombres de archivos
+    filepath_carpeta = test_generator.filenames
+    #print(filepath_carpeta)
+    filepath = list()
+
+    for file in filepath_carpeta:
+        file = file.split(os.sep)
+        file = file[1]
+        filepath.append(file)
+
+
+
+
     # While there are images in the generator...
     while contador < test_generator.n:
 
@@ -125,7 +141,7 @@ for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
     print("Cluster ", clusterIndex, " (test images): ", contador)
 
     # Save results to file [msi-mae-ssim-cluster-tag]
-    saveResults(results)
+    saveResults(results, filepath)
 
 print("FIN")
 

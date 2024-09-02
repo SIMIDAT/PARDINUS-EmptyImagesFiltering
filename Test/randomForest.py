@@ -11,15 +11,6 @@ from sklearn.metrics import confusion_matrix
 
 
 
-def getErrors(lineaTexto):
-
-    listaErrores = []
-
-    pass
-
-    # Step 3: Return error list [E11, E12, E13, E21, E22, E23...]
-    return listaErrores
-
 
 
 
@@ -39,12 +30,18 @@ f.close()
 listaEtiquetasPredichas = list()
 
 listaErroresAPredecir = list()
+listaNombres = list()
 
 for errorLine in errorList:
     errorLine = errorLine.rstrip()
 
     errorLine = errorLine.split(",")
+
+    # Obtenemos nombre del archivo y lo eliminamos de la lista de errores
+    nombreArchivo = errorLine[-1]
     errorLine.pop()
+    listaNombres.append(nombreArchivo)
+
     #print(errorLine)
     errorLineNumber = [float(i) for i in errorLine]
     errorLineNumber[-1] = int(errorLineNumber[-1])
@@ -65,6 +62,15 @@ for etiqueta in listaEtiquetasPredichas:
         etiquetasPrediccion.append(0)
 
 print(etiquetasPrediccion)
+
+
+# GUARDAMOS LOS RESULTADOS
+f = open("Resultados_Animales.txt", "w")
+
+for i, etiqueta in enumerate(etiquetasPrediccion):
+    f.write(str(etiqueta) + "," + listaNombres[i])
+
+f.close()
 
 # EVALUATION
 # TODO: Borrar

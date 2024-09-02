@@ -1,5 +1,5 @@
 ORIGINAL_DATA = "./Data/"
-DATA_NAME = "Vacio"  # You have to adjust this variable
+DATA_NAME = "Animales"  # You have to adjust this variable
 
 # Image features
 IMG_WIDTH = 384
@@ -11,7 +11,7 @@ BLOCK_HEIGHT = 4
 BLOCK_WIDTH = 6
 
 KMEANS_ROUTE = "./TrainedModels/KMeansModel.pkl"
-POST_CLUSTERING_DIRECTORY_NAME = "./Data/EqualizedClustered"
+POST_CLUSTERING_DIRECTORY_NAME = "./Data/BBDD_Clustered_AnimalTest"
 
 NUMBER_OF_CLUSTERS = 7
 
