@@ -7,4 +7,4 @@
 
 
 conda activate emptyfiltering
-srun python3 "/raid/david/EmptyImagesFiltering_V2/Train/randomForest.py"
+srun python3 "/raid/david/EmptyImagesFiltering_V2/Train/compileRAE.py"
