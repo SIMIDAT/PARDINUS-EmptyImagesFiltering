@@ -6,6 +6,8 @@ ANIMAL_DATA = IMAGE_FOLDER + "BBDDTrain/Animales"  # Route to animal data. It mu
 NUMBER_OF_CLUSTERS = 7  # Number of clusters to create (user selection)
 TRAINED_MODELS_ROUTE = "./TrainedModels/"  # Folder where trained models will be stored (user selection)
 
+ANIMAL_PROPORTION = 24  # Proportion of animal images vs empty images (i.e 24 means that 24% of all images are non-empty)
+
 ERROR_FILES_ROUTE = "./ErrorFiles/"
 
 
@@ -18,24 +20,7 @@ EMPTY_TEST_DATA = "./Data/BBDDTest/Vacio"
 
 
 
-
-
-
-
-# KMEANS_ROUTE = "./TrainedModels/KMeansModel.pkl"  #
-RAE_ROUTE = "./TrainedModels/"
-
-# POST_CLUSTERING_DIRECTORY_NAME = "./Data/BBDD_Clustered_EmptyTrain"  # Vacías de entrenamiento
-# POST_CLUSTERING_DIRECTORY_NAME_ANIMALTRAIN = "./Data/BBDD_Clustered_AnimalTrain"
-
-
-# POST_CLUSTERING_DIRECTORY_NAME_EMPTYTEST = "./Data/BBDD_Clustered_EmptyTest"
-# POST_CLUSTERING_DIRECTORY_NAME_ANIMALTEST = "./Data/BBDD_Clustered_AnimalTest"
-
-
-EMPTY_TRAIN_ERROR_FILE = "./ErrorFiles/Train_Errors_7_Vacio.txt"
-ANIMAL_TRAIN_ERROR_FILE = "./ErrorFiles/Train_Errors_7_Animales.txt"
-
+# Image features
 IMG_WIDTH = 384
 IMG_HEIGHT = 256
 INPUT_SHAPE = (IMG_HEIGHT, IMG_WIDTH, 3) # RGB color model
@@ -49,3 +34,6 @@ BATCH_SIZE = 16
 EPOCHS = 70
 VERBOSE = 1
 SEED = 1491
+
+# Train RF
+NUMBER_OF_ESTIMATORS = 200

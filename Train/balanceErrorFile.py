@@ -1,61 +1,61 @@
 import os
 import random
 
+import config
 
 # Balance the error file so that the number of animal images is equal to the number of empty images
 def main():
     
 
-    animalProportion = 24  # TODO: Change depending on the dataset and the number of empty and animal images
+    animalProportion = config.ANIMAL_PROPORTION  # Change depending on the dataset and the number of empty and animal images
+
+    numberOfClusters = config.NUMBER_OF_CLUSTERS
+
+    emptyFile = config.ERROR_FILES_ROUTE + "Train_Error_" + str(numberOfClusters) + "_Empty.txt"
+    animalFile = config.ERROR_FILES_ROUTE + "Train_Error_" + str(numberOfClusters) + "_Animal.txt"
+    balancedErrorsFile = config.ERROR_FILES_ROUTE + "Train_Error_" + str(numberOfClusters) + "_Balanced.txt"
 
 
-    blockWidth = 6
-    blockHeight = 4
 
-    numDivisiones = blockHeight * blockWidth
-
-    errorsFile = "./Data/TrainMulticlase.txt"
-    balancedErrorsFile = "./Data/TrainMulticlase_Balanced.txt"
-
-    
-
-    fichero = open(errorsFile, "r")
+    ficheroVacio = open(emptyFile, "r")
+    ficheroAnimales = open(animalFile, "r")
     ficheroBalanceado = open(balancedErrorsFile, "w")
 
-    lineasErrores = fichero.readlines()
+
+    lineasErroresVacio = ficheroVacio.readlines()
+    lineasErroresAnimales = ficheroAnimales.readlines()
+
 
     contadorVacio = 0
-    contadorAnimales = 0
+    contadorAnimales = 1
 
-    for lineaFichero in lineasErrores:
+    # If it is an animal image, we add it
+    for lineaFichero in lineasErroresAnimales:
         linea = lineaFichero.rstrip()
-
         linea = linea.split(",")
-
         if linea[-1] == '':
             linea.pop()
 
-        # If it is a empty image, throw random
-        if linea[numDivisiones * 3 + 1] == "0":
-            aleatorio = random.randint(0, 100)
+        ficheroBalanceado.write(lineaFichero)
+        contadorAnimales += 1
 
-            if aleatorio < animalProportion:
-                ficheroBalanceado.write(lineaFichero)
-                contadorVacio += 1
+    # If it is an empty image, throw random
+    for lineaFichero in lineasErroresVacio:
+        linea = lineaFichero.rstrip()
+        linea = linea.split(",")
+        if linea[-1] == '':
+            linea.pop()
 
-        # If it is an animal image, we add it
-        elif linea[numDivisiones * 3 + 1] == "1":
+        aleatorio = random.randint(0, 100)
+
+        if aleatorio < animalProportion:
             ficheroBalanceado.write(lineaFichero)
-            contadorAnimales += 1
+            contadorVacio += 1
 
-        else:
-            print("You should not see this DDD: (balanceErrorFile.py)")
-            print(linea)
 
-    print("Empty: " + str(contadorVacio) + " -- Animal: " + str(contadorAnimales))
-
+    ficheroVacio.close()
+    ficheroAnimales.close()
     ficheroBalanceado.close()
-    fichero.close()
 
 
 

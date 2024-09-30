@@ -2,6 +2,11 @@ from sklearn.ensemble import RandomForestClassifier
 import pickle as pkl
 import random
 
+import config
+
+
+
+numberOfClusters = config.NUMBER_OF_CLUSTERS
 
 
 # Prepare data for traininig
@@ -9,7 +14,7 @@ import random
 listaErroresEtiquetas = list()
 
 # Read balanced file
-balancedTrainErrorFile = "./Data/TrainMulticlase_Balanceado.txt"
+balancedTrainErrorFile = config.ERROR_FILES_ROUTE + "Train_Error_" + str(numberOfClusters) + "_Balanced.txt"
 
 f = open(balancedTrainErrorFile, "r")
 
@@ -52,7 +57,7 @@ for error in listaErroresEtiquetas:
 
 # Train the model
 
-randomForestModel = RandomForestClassifier(n_estimators=200)
+randomForestModel = RandomForestClassifier(n_estimators=config.NUMBER_OF_ESTIMATORS)
 randomForestModel.fit(listaErrores, listaEtiquetas)
 
 # Save the model

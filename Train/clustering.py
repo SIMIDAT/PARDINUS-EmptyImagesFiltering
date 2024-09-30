@@ -40,7 +40,6 @@ trainingData = np.array(trainingData)
 trainingData = trainingData.reshape(cc, 256 * 384 * 3)
 
 
-
 print("Training K-Means (" + str(config.NUMBER_OF_CLUSTERS) + " clusters)")
 
 kmeans = KMeans(n_clusters=config.NUMBER_OF_CLUSTERS).fit(trainingData)
@@ -50,6 +49,5 @@ print("kmeans entrenado \n")
 # Guardamos el modelo
 pkl.dump(kmeans, open(config.TRAINED_MODELS_ROUTE + "/kmeans.pkl", 'wb')) #Saving the model
 
-print("kmeans guardado \n")
 
 print("kmeans trained")

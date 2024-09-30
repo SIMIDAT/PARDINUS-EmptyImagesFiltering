@@ -88,9 +88,7 @@ def main():
     IMG_WIDTH = config.IMG_WIDTH
     IMG_HEIGHT = config.IMG_HEIGHT
     input_shape = config.INPUT_SHAPE
-
-
-    # Depending if we want to create a error file of training images or testing images, we use different workflows
+    
 
     # Train workflow
     clusteredFolder = [config.IMAGE_FOLDER + "BBDD_Clustered_EmptyTrain", config.IMAGE_FOLDER + "BBDD_Clustered_AnimalTrain"]
