@@ -11,26 +11,28 @@ import shutil
 import cv2 as cv
 
 # Loading KMeans model (sklearn 1.2.0)
-kmeansModel = pickle.load(open(config.KMEANS_ROUTE, "rb"))
+kmeansModel = pickle.load(open(config.TRAINED_MODELS_ROUTE + "/kmeans.pkl", "rb"))
 print(len(kmeansModel.cluster_centers_))
 
 # Read data and assign a cluster
 contador = 0
 
 # Prepare output directory
-if os.path.isdir(config.POST_CLUSTERING_DIRECTORY_NAME):
+postClusteringDirectory = config.IMAGE_FOLDER + "BBDD_Clustered_Test"
+
+if os.path.isdir(postClusteringDirectory):
     # Remove old equalized images
     print("EXISTE")
-    shutil.rmtree(config.POST_CLUSTERING_DIRECTORY_NAME)
+    shutil.rmtree(postClusteringDirectory)
 
-os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME)
+os.mkdir(postClusteringDirectory)
 
 for i in range(config.NUMBER_OF_CLUSTERS):
-    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i))
-    os.mkdir(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(i) + os.sep + "images")
+    os.mkdir(postClusteringDirectory + os.sep + str(i))
+    os.mkdir(postClusteringDirectory + os.sep + str(i) + os.sep + "images")
 
 
-for root, dirs, files in os.walk(config.ORIGINAL_DATA + config.DATA_NAME, topdown=True):
+for root, dirs, files in os.walk(config.TEST_IMAGES, topdown=True):
     for name in files:
         
         contador += 1
@@ -39,7 +41,7 @@ for root, dirs, files in os.walk(config.ORIGINAL_DATA + config.DATA_NAME, topdow
         # Read and prepare image
         originalImg = cv.imread(rutaIMG)
         img = cv.normalize(originalImg, None, alpha=0, beta=1, norm_type=cv.NORM_MINMAX, dtype=cv.CV_32F)
-        img = img.reshape(256 * 384 * 3)
+        img = img.reshape(config.IMG_HEIGHT * config.IMG_WIDTH * 3)
         img = img.reshape(1, -1)
         
         # Predict cluster
@@ -49,8 +51,7 @@ for root, dirs, files in os.walk(config.ORIGINAL_DATA + config.DATA_NAME, topdow
         eqImg = utils.equalizeImage(originalImg)
 
         # Save equalized image
-        writeRoute = config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + name
-        cv.imwrite(config.POST_CLUSTERING_DIRECTORY_NAME + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
+        cv.imwrite(postClusteringDirectory + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
 
         
         if contador % 100 == 0:

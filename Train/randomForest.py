@@ -61,7 +61,7 @@ randomForestModel = RandomForestClassifier(n_estimators=config.NUMBER_OF_ESTIMAT
 randomForestModel.fit(listaErrores, listaEtiquetas)
 
 # Save the model
-pkl.dump(randomForestModel, open("./modeloRF.pkl", "wb"))
+pkl.dump(randomForestModel, open(config.TRAINED_MODELS_ROUTE + "./modeloRF.pkl", "wb"))
 
 
 

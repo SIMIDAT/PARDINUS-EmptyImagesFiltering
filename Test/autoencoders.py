@@ -61,8 +61,8 @@ def saveResults(results, filepath):
     #     shutil.rmtree(config.ERRORS_DIRECTORY)
 
     # os.mkdir(config.ERRORS_DIRECTORY)
-
-    fichero = open(config.ERRORS_DIRECTORY + os.sep + "Test_Nombre_Errors_7_RAE_" + config.DATA_NAME + ".txt", "w")
+    # TODO
+    fichero = open(config.ERRORS_DIRECTORY + os.sep + "Test_Name_Errors_7_RAE_VACIO.txt", "w")
 
     for indiceImagen, resultado in enumerate(results):
 
@@ -77,13 +77,19 @@ def saveResults(results, filepath):
 
 
 ### MAIN ###
-testFolder = config.POST_CLUSTERING_DIRECTORY_NAME + os.sep
+# TODO
+# testFolder = config.IMAGE_FOLDER + "BBDD_Clustered_Test" + os.sep
+testFolder = "./Data/BBDD_Clustered_EmptyTest/"
 results = list()
+filepath = list()
+
+numberOfClusters = config.NUMBER_OF_CLUSTERS
 
 # For each cluster of images
-for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
+for clusterIndex in range(numberOfClusters):
 
-    AEName = config.RAE_ROUTE + "RAE_Reentreno_7CL_" + str(clusterIndex) + ".h5"
+    # TODO
+    AEName = config.TRAINED_MODELS_ROUTE + "RAE_Reentreno_" + str(numberOfClusters) + "CL_" + str(clusterIndex) + ".h5"
 
     print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
     print('Model: ' + AEName)
@@ -110,7 +116,7 @@ for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
     # Nombres de archivos
     filepath_carpeta = test_generator.filenames
     #print(filepath_carpeta)
-    filepath = list()
+    
 
     for file in filepath_carpeta:
         file = file.split(os.sep)
@@ -126,6 +132,8 @@ for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
         original = test_generator.next()
         prediccion = model.predict(original)
 
+        
+
         # Calcutate errors.
 
         errores = errorCalculation(original[0], prediccion[0], config.IMG_WIDTH, config.IMG_HEIGHT, config.BLOCK_WIDTH, config.BLOCK_HEIGHT)
@@ -140,8 +148,12 @@ for clusterIndex in range(config.NUMBER_OF_CLUSTERS):
     
     print("Cluster ", clusterIndex, " (test images): ", contador)
 
-    # Save results to file [msi-mae-ssim-cluster-tag]
-    saveResults(results, filepath)
+    print(len(results), len(filepath))
+
+    
+
+# Save results to file [mse-mae-ssim-cluster-tag]
+saveResults(results, filepath)
 
 print("FIN")
 

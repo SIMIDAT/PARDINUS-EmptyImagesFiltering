@@ -37,7 +37,7 @@ for root, dirs, files in os.walk(config.EMPTY_DATA, topdown=False):
 # Convert each instance to array
 trainingData = np.array(trainingData)
 
-trainingData = trainingData.reshape(cc, 256 * 384 * 3)
+trainingData = trainingData.reshape(cc, config.IMG_WIDTH * config.IMG_HEIGHT * 3)
 
 
 print("Training K-Means (" + str(config.NUMBER_OF_CLUSTERS) + " clusters)")

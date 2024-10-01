@@ -16,12 +16,14 @@ from sklearn.metrics import confusion_matrix
 
 
 # Loading KMeans model (sklearn 1.2.0)
-rfModel = pickle.load(open(config.RF_ROUTE, "rb"))
+rfModel = pickle.load(open(config.TRAINED_MODELS_ROUTE + "./modeloRF.pkl", "rb"))
 
 
 # Load test data
-# TODO: dejar esta línea --> f = open(config.ERRORS_DIRECTORY + os.sep + "Test_Errors_7_RAE_" + config.DATA_NAME + ".txt")
-f = open(config.ERRORS_DIRECTORY + os.sep + "Tercera_Test_SinEtiquetar.txt")
+#TODO
+#f = open(config.ERRORS_DIRECTORY + os.sep + "Test_Name_Errors_7_RAE.txt")
+
+f = open("./ErrorFiles/Test_Name_Errors_7_RAE_ANIMAL.txt")
 
 errorList = f.readlines()
 
@@ -61,49 +63,49 @@ for etiqueta in listaEtiquetasPredichas:
         # Empty
         etiquetasPrediccion.append(0)
 
-print(etiquetasPrediccion)
+# print(etiquetasPrediccion)
 
 
 # GUARDAMOS LOS RESULTADOS
-f = open("Resultados_Animales.txt", "w")
+f = open("./Results.txt", "w")
 
 for i, etiqueta in enumerate(etiquetasPrediccion):
-    f.write(str(etiqueta) + "," + listaNombres[i])
+    f.write(listaNombres[i] + "," + str(etiqueta) + "\n")
 
 f.close()
 
 # EVALUATION
 # TODO: Borrar
 
-etiquetasTest = list()
+# etiquetasTest = list()
 
-for i in range(3000):
-    etiquetasTest.append(0)
+# for i in range(3000):
+#     etiquetasTest.append(0)
 
-for i in range(3000):
-    etiquetasTest.append(1)
+# for i in range(3000):
+#     etiquetasTest.append(1)
 
-print(len(etiquetasTest))
+# print(len(etiquetasTest))
 
-print(classification_report(etiquetasTest, etiquetasPrediccion))
+# print(classification_report(etiquetasTest, etiquetasPrediccion))
 
-#confusion_matrix(etiquetasTest, etiquetasPrediccion)
+# #confusion_matrix(etiquetasTest, etiquetasPrediccion)
 
-a = confusion_matrix(etiquetasTest, etiquetasPrediccion)
+# a = confusion_matrix(etiquetasTest, etiquetasPrediccion)
 
-tp = round((float(a[0][0]) / 3000) * 100, 4)
-fp = round((float(a[0][1]) / 3000) * 100, 4)
-fn = round((float(a[1][0]) / 3000) * 100, 4)
-tn = round((float(a[1][1]) / 3000) * 100, 4)
+# tp = round((float(a[0][0]) / 3000) * 100, 4)
+# fp = round((float(a[0][1]) / 3000) * 100, 4)
+# fn = round((float(a[1][0]) / 3000) * 100, 4)
+# tn = round((float(a[1][1]) / 3000) * 100, 4)
 
-print("Matriz de confusión")
+# print("Matriz de confusión")
 
-print("TP  FP")
-print("FN  TN\n")
-print(str(tp) + "   " + str(fp))
-print(str(fn) + " " + str(tn))
+# print("TP  FP")
+# print("FN  TN\n")
+# print(str(tp) + "   " + str(fp))
+# print(str(fn) + " " + str(tn))
 
-print()
-print(fn, fp)
+# print()
+# print(fn, fp)
     
     
