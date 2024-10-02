@@ -28,6 +28,11 @@ Train/Graficas
 
 Train/ErrorFiles
 
+Test/analizarResultados.py
+
+Test/Results_ANIMAL.txt
+Test/Results_VACIO.txt
+
 
 
 

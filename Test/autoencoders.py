@@ -55,14 +55,7 @@ def errorCalculation(original, reconstruccion, width, height, blockWidth, blockH
 # Save reconstruction error results on disk
 def saveResults(results, filepath):
 
-    # # Prepare output directory
-    # if os.path.isdir(config.ERRORS_DIRECTORY):
-    #     # Remove old error files
-    #     shutil.rmtree(config.ERRORS_DIRECTORY)
-
-    # os.mkdir(config.ERRORS_DIRECTORY)
-    # TODO
-    fichero = open(config.ERRORS_DIRECTORY + os.sep + "Test_Name_Errors_7_RAE_VACIO.txt", "w")
+    fichero = open(config.ERROR_FILES_ROUTE + os.sep + "Test_Name_Errors_7_RAE_.txt", "w")
 
     for indiceImagen, resultado in enumerate(results):
 
@@ -78,8 +71,7 @@ def saveResults(results, filepath):
 
 ### MAIN ###
 # TODO
-# testFolder = config.IMAGE_FOLDER + "BBDD_Clustered_Test" + os.sep
-testFolder = "./Data/BBDD_Clustered_EmptyTest/"
+testFolder = config.IMAGE_FOLDER + "BBDD_Clustered_Test" + os.sep
 results = list()
 filepath = list()
 
@@ -88,8 +80,7 @@ numberOfClusters = config.NUMBER_OF_CLUSTERS
 # For each cluster of images
 for clusterIndex in range(numberOfClusters):
 
-    # TODO
-    AEName = config.TRAINED_MODELS_ROUTE + "RAE_Reentreno_" + str(numberOfClusters) + "CL_" + str(clusterIndex) + ".h5"
+    AEName = config.TRAINED_MODELS_ROUTE + "RAE_" + str(numberOfClusters) + "CL_" + str(clusterIndex) + ".h5"
 
     print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
     print('Model: ' + AEName)

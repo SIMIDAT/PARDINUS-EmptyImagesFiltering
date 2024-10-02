@@ -21,9 +21,7 @@ rfModel = pickle.load(open(config.TRAINED_MODELS_ROUTE + "./modeloRF.pkl", "rb")
 
 # Load test data
 #TODO
-#f = open(config.ERRORS_DIRECTORY + os.sep + "Test_Name_Errors_7_RAE.txt")
-
-f = open("./ErrorFiles/Test_Name_Errors_7_RAE_ANIMAL.txt")
+f = open(config.ERRORS_DIRECTORY + os.sep + "Test_Name_Errors_7_RAE.txt")
 
 errorList = f.readlines()
 
@@ -39,7 +37,7 @@ for errorLine in errorList:
 
     errorLine = errorLine.split(",")
 
-    # Obtenemos nombre del archivo y lo eliminamos de la lista de errores
+    # Get filename
     nombreArchivo = errorLine[-1]
     errorLine.pop()
     listaNombres.append(nombreArchivo)
@@ -74,38 +72,5 @@ for i, etiqueta in enumerate(etiquetasPrediccion):
 
 f.close()
 
-# EVALUATION
-# TODO: Borrar
-
-# etiquetasTest = list()
-
-# for i in range(3000):
-#     etiquetasTest.append(0)
-
-# for i in range(3000):
-#     etiquetasTest.append(1)
-
-# print(len(etiquetasTest))
-
-# print(classification_report(etiquetasTest, etiquetasPrediccion))
-
-# #confusion_matrix(etiquetasTest, etiquetasPrediccion)
-
-# a = confusion_matrix(etiquetasTest, etiquetasPrediccion)
-
-# tp = round((float(a[0][0]) / 3000) * 100, 4)
-# fp = round((float(a[0][1]) / 3000) * 100, 4)
-# fn = round((float(a[1][0]) / 3000) * 100, 4)
-# tn = round((float(a[1][1]) / 3000) * 100, 4)
-
-# print("Matriz de confusión")
-
-# print("TP  FP")
-# print("FN  TN\n")
-# print(str(tp) + "   " + str(fp))
-# print(str(fn) + " " + str(tn))
-
-# print()
-# print(fn, fp)
     
     
