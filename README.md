@@ -38,8 +38,35 @@ Depending on the training settings or your images features, you may also want to
 
 The last script, _randomForest.py_, will create a new file in root directory, Results.txt. This file store, for each row, the name of the image and the label assigned. Label 0 means that PARDINUS has classified the image as empty, while label 1 implies that there are animals within the image.
 
+_RobustAutoencoder.py_ defines the architecture of the RAE models that are used to predict the label of the images.
+
 ### Train new models using your own images
 
+There are six scripts that you should execute to test trained models on your own images: _clustering.py, _applyClustering.py, autoencoders.py, applyAutoencoders.py, balanceErrorFile.py_ and _randomForest.py_, __in this order__. 
+
+```
+python clustering.py
+python applyClustering.py
+python autoencoders.py
+python applyAutoencoders.py
+python balanceErrorFile.py
+python randomForest.py
+```
+The file _config.py_ contains variables that needs to be set to make the scripts work properly.
+
+- IMAGE_FOLDER: set where the images are stored. This folder will also contain clustered and equalized images. Default: "./Data/"
+
+- EMPTY_DATA: set where the empty images are stored. Default: IMAGE_FOLDER + "BBDDTrain/Empty"
+
+- ANIMAL_DATA: set where the non-empty images are stored. Default: IMAGE_FOLDER + "BBDDTrain/Animal"
+
+- TRAINED_MODELS_ROUTE: set where the trained models are stored. There should be one k-means clustering model, one random forest model and one RAE model for each cluster of images. Default: "./TrainedModels/"
+
+- ERROR_FILES_ROUTE: set where the trained models are stored. Default: "./ErrorFiles/"
+
+- ANIMAL_PROPORTION: set the proportion of animal images versus empty images (i.e 24 means that 24% of all images are non-empty)
 
 
+Depending on the training settings or your images features, you may also want to change other parameters in config.py as the image width or height, the number of clusters or other training hyperparameters as number of epoch or batch size.
 
+After run all the scripts, trained models should be stored at TRAINED_MODELS_ROUTE.

@@ -10,6 +10,22 @@ import pickle
 import shutil
 import cv2 as cv
 
+
+
+
+
+def equalizeImage(img):
+    img_yuv = cv.cvtColor(img, cv.COLOR_BGR2YUV)
+
+    # equalize the histogram of the Y channel
+    img_yuv[:,:,0] = cv.equalizeHist(img_yuv[:,:,0])
+
+    # convert the YUV image back to RGB format
+    img = cv.cvtColor(img_yuv, cv.COLOR_YUV2BGR)
+
+    return img
+
+
 # Loading KMeans model (sklearn 1.2.0)
 kmeansModel = pickle.load(open(config.TRAINED_MODELS_ROUTE + "/kmeans.pkl", "rb"))
 print(len(kmeansModel.cluster_centers_))
@@ -48,7 +64,7 @@ for root, dirs, files in os.walk(config.TEST_IMAGES, topdown=True):
         indiceCluster = kmeansModel.predict(img)[0]
 
         # Get equalized image
-        eqImg = utils.equalizeImage(originalImg)
+        eqImg = equalizeImage(originalImg)
 
         # Save equalized image
         cv.imwrite(postClusteringDirectory + os.sep + str(indiceCluster) + os.sep + "images" + os.sep + name, eqImg)
