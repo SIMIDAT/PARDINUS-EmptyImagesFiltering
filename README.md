@@ -27,7 +27,7 @@ python randomForest.py
 ```
 
 
-The file _config.py_ contains variables that needs to be set to make the scripts work properly.
+The file _config.py_ contains variables that needs to be set to make the scripts work properly. When indicating the route to a specific folder, you have to create the folder itself, with the name you set. For example, if you set IMAGE_FOLDER = "./MY_IMAGES/", you would have to create a folder in the root named "./MY_IMAGES/", where the images should be stored.
 
 - IMAGE_FOLDER: set where the images are stored. This folder will also contain clustered and equalized images. Default: "./Data/"
 - TEST_IMAGES: set where the original images, your own images, are stored. Default: "./Data/"
