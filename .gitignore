@@ -1,37 +1,38 @@
-Test/TrainedModels
-Test/Data
-Train/TrainedModels
-Test/TrainedModelsAntiguo
+test/TrainedModels
+test/Data
+train/TrainedModels
+test/TrainedModelsAntiguo
 
 EcualizedClustered
 EjecucionesServidor
 ErrorFiles
 
-Test/*.bs
-Test/*.out
+test/*.bs
+test/*.out
 
-Test/__pycache__
+test/__pycache__
 
 BBDDReentrenamiento
 
-Train/Data
+train/Data
 
-Train/__pycache__
+train/__pycache__
 
-Train/*.bs
-Train/*.out
+train/*.bs
+train/*.out
 
-Train/climages.py
-Train/log.txt
+train/climages.py
+train/log.txt
 
-Train/Graficas
+train/Graficas
 
-Train/ErrorFiles
+train/ErrorFiles
 
-Test/analizarResultados.py
+test/analizarResultados.py
 
-Test/Results_ANIMAL.txt
-Test/Results_VACIO.txt
+test/Results_ANIMAL.txt
+test/Results_VACIO.txt
+test/compile.py
 
 
 

@@ -1,6 +1,4 @@
-'''
-Reconstruction of equalized images and creation of errors file
-'''
+
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -9,6 +7,17 @@ import config
 import os
 
 import shutil
+
+
+
+
+
+
+'''
+Reconstruction of equalized images and creation of errors file
+'''
+
+
 
 # Error metrics
 mse = tf.keras.losses.MeanSquaredError()
@@ -70,82 +79,90 @@ def saveResults(results, filepath):
 
 
 ### MAIN ###
-# TODO
-testFolder = config.IMAGE_FOLDER + "BBDD_Clustered_Test" + os.sep
-results = list()
-filepath = list()
-
-numberOfClusters = config.NUMBER_OF_CLUSTERS
-
-# For each cluster of images
-for clusterIndex in range(numberOfClusters):
-
-    AEName = config.TRAINED_MODELS_ROUTE + "RAE_" + str(numberOfClusters) + "CL_" + str(clusterIndex) + ".h5"
-
-    print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
-    print('Model: ' + AEName)
-
-    input_shape = config.INPUT_SHAPE
-    model = getRobustAE(input_shape)
-    model.load_weights(AEName)
-
-    # Process the test dataset
-    test_dataset = ImageDataGenerator(rescale=1./255, data_format='channels_last')
-
-    test_generator = test_dataset.flow_from_directory(
-        testFolder + str(clusterIndex),
-        target_size = (config.IMG_HEIGHT, config.IMG_WIDTH),
-        batch_size=1,
-        class_mode=None,
-        shuffle=False,
-        seed=config.SEED
-    )
-
-    contador = 0
-
-
-    # Nombres de archivos
-    filepath_carpeta = test_generator.filenames
-    #print(filepath_carpeta)
-    
-
-    for file in filepath_carpeta:
-        file = file.split(os.sep)
-        file = file[1]
-        filepath.append(file)
 
 
 
+def main():
+    testFolder = config.IMAGE_FOLDER + "BBDD_Clustered_Test" + os.sep
+    results = list()
+    filepath = list()
 
-    # While there are images in the generator...
-    while contador < test_generator.n:
+    numberOfClusters = config.NUMBER_OF_CLUSTERS
 
-        original = test_generator.next()
-        prediccion = model.predict(original)
+    # For each cluster of images
+    for clusterIndex in range(numberOfClusters):
+
+        AEName = config.TRAINED_MODELS_ROUTE + "RAE_" + str(numberOfClusters) + "CL_" + str(clusterIndex) + ".h5"
+
+        print('\n\n\n SCANNING CLUSTER ' + str(clusterIndex))
+        print('Model: ' + AEName)
+
+        input_shape = config.INPUT_SHAPE
+        model = getRobustAE(input_shape)
+        model.load_weights(AEName)
+
+        # Process the test dataset
+        test_dataset = ImageDataGenerator(rescale=1./255, data_format='channels_last')
+
+        test_generator = test_dataset.flow_from_directory(
+            testFolder + str(clusterIndex),
+            target_size = (config.IMG_HEIGHT, config.IMG_WIDTH),
+            batch_size=1,
+            class_mode=None,
+            shuffle=False,
+            seed=config.SEED
+        )
+
+        contador = 0
+
+
+        # Nombres de archivos
+        filepath_carpeta = test_generator.filenames
+        #print(filepath_carpeta)
+        
+
+        for file in filepath_carpeta:
+            file = file.split(os.sep)
+            file = file[1]
+            filepath.append(file)
+
+
+
+
+        # While there are images in the generator...
+        while contador < test_generator.n:
+
+            original = test_generator.next()
+            prediccion = model.predict(original)
+
+            
+
+            # Calcutate errors.
+
+            errores = errorCalculation(original[0], prediccion[0], config.IMG_WIDTH, config.IMG_HEIGHT, config.BLOCK_WIDTH, config.BLOCK_HEIGHT)
+
+            errores.append(clusterIndex)
+
+            # Save results
+            results.append(errores)
+
+            contador += 1
+
+        
+        print("Cluster ", clusterIndex, " (test images): ", contador)
+
+        print(len(results), len(filepath))
 
         
 
-        # Calcutate errors.
+    # Save results to file [mse-mae-ssim-cluster-tag]
+    saveResults(results, filepath)
 
-        errores = errorCalculation(original[0], prediccion[0], config.IMG_WIDTH, config.IMG_HEIGHT, config.BLOCK_WIDTH, config.BLOCK_HEIGHT)
+    print("FIN")
 
-        errores.append(clusterIndex)
 
-        # Save results
-        results.append(errores)
+if __name__ == "__main__":
 
-        contador += 1
-
-    
-    print("Cluster ", clusterIndex, " (test images): ", contador)
-
-    print(len(results), len(filepath))
-
-    
-
-# Save results to file [mse-mae-ssim-cluster-tag]
-saveResults(results, filepath)
-
-print("FIN")
+    main()
 
 

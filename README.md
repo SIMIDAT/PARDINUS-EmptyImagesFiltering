@@ -16,6 +16,11 @@ pip install -r requirements.txt
 ## Code organization and usage
 The code is organized into two main folders: _Train_ and _Test_. _Test_ folder contains the scripts to test or evaluate pretrained models on your own images. _Train_ folder contains the scripts for training your own models.
 
+
+### Preprocessing
+The images must be 256 pixels height and 384 pixels width, RGB format. If your images needs to be resized, you can use the script resizeImages.py
+
+
 ### Test or inference
 
 There are three scripts that you should execute to test trained models on your own images: _clustering.py, autoencoders.py_ and _randomForest.py_, __in this order__. 
@@ -34,11 +39,14 @@ The file _config.py_ contains variables that needs to be set to make the scripts
 - TRAINED_MODELS_ROUTE: set where the trained models are stored. There should be one k-means clustering model, one random forest model and one RAE model for each cluster of images. Default: "./TrainedModels/"
 - ERROR_FILES_ROUTE: set where the trained models are stored. Default: "./ErrorFiles/"
 
-Depending on the training settings or your images features, you may also want to change other parameters in _config.py_ as the image width or height or the number of clusters.
+Depending on the training settings or your images features, you may also want to change other parameters in _config.py_ as the number of clusters to create.
 
-The last script, _randomForest.py_, will create a new file in root directory, Results.txt. This file store, for each row, the name of the image and the label assigned. Label 0 means that PARDINUS has classified the image as empty, while label 1 implies that there are animals within the image.
+The last script, _randomForest.py_, will create a new file in root directory, Results.csv. 
 
 _RobustAutoencoder.py_ defines the architecture of the RAE models that are used to predict the label of the images.
+
+#### Results output
+The execution of _randomForest.py_ script will provide the results of PARDINUS on the test images. The file that store the results is called Results.csv. For each row, this file store the name of the image and the label assigned. Label 0 means that PARDINUS has classified the image as empty, while label 1 implies that there are animals within the image. The image name and the assigned label are separated by the symbol ";", following the CSV standars.
 
 ### Train new models using your own images
 
@@ -70,3 +78,11 @@ The file _config.py_ contains variables that needs to be set to make the scripts
 Depending on the training settings or your images features, you may also want to change other parameters in config.py as the image width or height, the number of clusters or other training hyperparameters as number of epoch or batch size.
 
 After run all the scripts, trained models should be stored at TRAINED_MODELS_ROUTE.
+
+
+
+## Data Availability
+The dataset used in this project is provided by WWF and is subject to restricted access. Researchers interested in using this dataset must request permission directly from WWF. More details can be found at [this link](http://n2t.net/ark:/63614/w12001260). Note that this repository provides scripts and instructions to train and test models using your own datasets.
+
+### Metadata of WWF Dataset employed in the research
+
