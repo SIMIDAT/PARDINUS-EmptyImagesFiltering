@@ -34,9 +34,12 @@ python randomForest.py
 
 The file _config.py_ contains variables that needs to be set to make the scripts work properly. When indicating the route to a specific folder, you have to create the folder itself, with the name you set. For example, if you set IMAGE_FOLDER = "./MY_IMAGES/", you would have to create a folder in the root named "./MY_IMAGES/", where the images should be stored.
 
-- IMAGE_FOLDER: set where the images are stored. This folder will also contain clustered and equalized images. Default: "./Data/"
-- TEST_IMAGES: set where the original images, your own images, are stored. Default: "./Data/"
+- IMAGE_FOLDER: set where the clustered and equalized images for the RAEs will be stored. Default: "./Data/"
+  
+- TEST_IMAGES: set where the original images, your own images, are stored. Default: "./Data/BBDDTest"
+  
 - TRAINED_MODELS_ROUTE: set where the trained models are stored. There should be one k-means clustering model, one random forest model and one RAE model for each cluster of images. Default: "./TrainedModels/"
+  
 - ERROR_FILES_ROUTE: set where the trained models are stored. Default: "./ErrorFiles/"
 
 Depending on the training settings or your images features, you may also want to change other parameters in _config.py_ as the number of clusters to create.
@@ -62,7 +65,7 @@ python randomForest.py
 ```
 The file _config.py_ contains variables that needs to be set to make the scripts work properly.
 
-- IMAGE_FOLDER: set where the images are stored. This folder will also contain clustered and equalized images. Default: "./Data/"
+- IMAGE_FOLDER:  set where the clustered and equalized images for the trainig of the RAEs will be stored. Default: "./Data/"
 
 - EMPTY_DATA: set where the empty images are stored. Default: IMAGE_FOLDER + "BBDDTrain/Empty"
 
@@ -82,7 +85,6 @@ After run all the scripts, trained models should be stored at TRAINED_MODELS_ROU
 
 
 ## Data Availability
-The dataset used in this project is provided by WWF and is subject to restricted access. Researchers interested in using this dataset must request permission directly from WWF. More details can be found at [this link](http://n2t.net/ark:/63614/w12001260). Note that this repository provides scripts and instructions to train and test models using your own datasets.
+The dataset used in this project is provided by WWF and is subject to restricted access. 
 
-### Metadata of WWF Dataset employed in the research
-
+Researchers interested in using this dataset must request permission directly from WWF. The original photographs and data can be accessed via Wildlife Insights, project “Seguimiento Lince WWF España”. The details about the dataset and its metadata can be found at [this link](http://n2t.net/ark:/63614/w12001260). Note that this repository provides scripts and instructions to train and test models using your own datasets.
